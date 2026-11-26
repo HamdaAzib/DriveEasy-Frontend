@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b25">
+  <title>DriveEasy — Location de véhicules</title>
+  <style>
+    :root{--ink:#162b25;--muted:#718078;--green:#1f7659;--green-dark:#155841;--mint:#e8f3ed;--line:#e7ece8;--paper:#fff;--canvas:#f6f8f6;--amber:#f3b84b;--red:#b64a3c;--shadow:0 16px 48px #143b2710}
+    *{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.shell{min-height:100vh;display:grid;grid-template-columns:250px minmax(0,1fr)}
+    aside{background:#102b25;color:#e8f3ed;padding:28px 18px;display:flex;flex-direction:column;gap:34px}.brand{display:flex;align-items:center;gap:12px;padding:0 10px;font-size:20px;font-weight:750;letter-spacing:-.5px}.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#a4d6b9;color:#12382b;font-size:19px}.brand small{display:block;font-size:10px;font-weight:500;letter-spacing:1.6px;color:#a8c2b5;text-transform:uppercase}.nav-label{padding:0 12px;color:#82a093;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:-22px}.nav{display:grid;gap:6px}.nav button{border:0;border-radius:10px;padding:11px 12px;background:transparent;color:#b8ccc1;text-align:left;display:flex;align-items:center;gap:12px}.nav button:hover,.nav button.active{background:#20483b;color:#fff}.nav .ico{width:20px;text-align:center;font-size:17px}.aside-bottom{margin-top:auto;padding:15px 12px;border-top:1px solid #ffffff20;color:#9eb7a9;font-size:12px}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#78cf97;margin-right:8px}
+    main{min-width:0;padding:28px clamp(18px,4vw,58px) 60px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:28px}.eyebrow{color:var(--green);font-size:11px;font-weight:750;letter-spacing:1.5px;text-transform:uppercase}.topbar h1{font-size:25px;line-height:1.2;margin:3px 0 0;letter-spacing:-.7px}.user-chip{display:flex;align-items:center;gap:10px;color:#33483f;font-weight:650}.avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#d8eadf;color:#1b6248;font-weight:750}.view{display:none}.view.active{display:block}.hero{min-height:254px;border-radius:20px;padding:34px clamp(24px,5vw,54px);background:linear-gradient(106deg,#173a2d 0%,#235b43 64%,#34765a 100%);color:white;position:relative;overflow:hidden;display:flex;align-items:center;box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff1d;border-radius:50%;right:8%;top:-130px;box-shadow:0 0 0 38px #ffffff08,0 0 0 80px #ffffff07}.hero-copy{position:relative;z-index:1;max-width:540px}.hero .eyebrow{color:#a7d7b9}.hero h2{font-size:clamp(29px,4vw,43px);letter-spacing:-1.5px;line-height:1.08;margin:11px 0}.hero p{color:#d4e5da;max-width:450px;margin:0 0 23px}.hero-illustration{position:absolute;right:10%;bottom:-36px;font-size:clamp(90px,13vw,165px);filter:drop-shadow(0 16px 12px #071e1570);opacity:.93;transform:scaleX(-1)}
+    .btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;transition:.15s}.btn-primary{background:var(--green);color:white}.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px)}.hero .btn-primary{background:#d4eadb;color:#143d2d}.hero .btn-primary:hover{background:#fff}.btn-light{background:white;color:var(--ink);border:1px solid var(--line)}.btn-light:hover{background:#f2f7f3}.btn-small{padding:8px 11px;font-size:12px;border-radius:8px}.btn-danger{background:#fff0ed;color:#9d392f}.btn:disabled{opacity:.55;cursor:wait}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:23px 0 34px}.stat{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 6px 24px #102b2505}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:600}.stat-icon{width:34px;height:34px;border-radius:10px;background:var(--mint);display:grid;place-items:center;font-size:16px}.stat-value{font-size:27px;font-weight:760;letter-spacing:-1px;margin-top:7px}.stat-note{font-size:11px;color:var(--muted)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:25px 0 15px}.section-head h2{font-size:19px;letter-spacing:-.4px;margin:0}.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}.car-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.car-card{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.18s}.car-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}.car-art{height:124px;background:linear-gradient(135deg,#e3eee7,#f3f5ef);display:grid;place-items:center;position:relative}.car-art span{font-size:67px;filter:drop-shadow(0 7px 4px #142b2521)}.car-category{position:absolute;left:13px;top:12px;background:#fffdf1d9;color:#5e6249;padding:5px 8px;border-radius:20px;font-size:10px;font-weight:750}.car-content{padding:15px}.car-title{display:flex;justify-content:space-between;align-items:start;gap:8px}.car-title h3{font-size:16px;margin:0}.car-plate{font-size:11px;color:var(--muted);margin-top:3px}.car-price{white-space:nowrap;font-weight:750;color:var(--green);font-size:15px}.car-price small{font-weight:500;color:var(--muted);font-size:10px}.car-meta{display:flex;gap:13px;color:var(--muted);font-size:11px;padding:13px 0;border-bottom:1px solid var(--line)}.car-actions{display:flex;align-items:center;justify-content:space-between;padding-top:12px}.badge{display:inline-flex;align-items:center;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:750;white-space:nowrap}.badge.available,.badge.completed{background:#e5f3e9;color:#277248}.badge.busy,.badge.reserved{background:#fff3d9;color:#8a6514}.badge.maintenance,.badge.cancelled{background:#f2e8e6;color:#8b4e43}.badge.running{background:#e5eefb;color:#3e6296}
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.field{display:grid;gap:6px}.toolbar .field{flex:1;min-width:150px}.field label{font-size:11px;font-weight:700;color:#54665d}.control{width:100%;min-height:42px;border:1px solid #dfe7e1;background:white;color:var(--ink);border-radius:9px;padding:9px 11px;outline:none}.control:focus{border-color:#60a884;box-shadow:0 0 0 3px #63ab841c}.search-wrap{position:relative}.search-wrap input{padding-left:36px}.search-wrap:before{content:"⌕";position:absolute;left:12px;top:6px;font-size:23px;color:#819187;z-index:1}
+    .table-wrap{background:white;border:1px solid var(--line);border-radius:14px;overflow:auto}.data-table{border-collapse:collapse;width:100%;min-width:700px}.data-table th{text-align:left;background:#f8faf8;color:#728078;font-size:10px;letter-spacing:.9px;text-transform:uppercase;padding:13px 16px}.data-table td{padding:14px 16px;border-top:1px solid #edf0ed;font-size:13px}.data-table tr:hover td{background:#fbfcfb}.muted{color:var(--muted);font-size:11px}.table-actions{display:flex;gap:6px;flex-wrap:wrap}.client-name{font-weight:700}.client-sub{font-size:11px;color:var(--muted)}.empty{padding:35px;text-align:center;color:var(--muted);background:white;border:1px dashed #cfd9d2;border-radius:14px}.empty strong{display:block;color:var(--ink);margin-bottom:5px}
+    dialog{border:0;padding:0;width:min(520px,calc(100% - 28px));border-radius:17px;box-shadow:0 22px 80px #09251b45}dialog::backdrop{background:#0d241cb3;backdrop-filter:blur(3px)}.modal{padding:23px}.modal-head{display:flex;align-items:start;justify-content:space-between;margin-bottom:17px}.modal-head h2{margin:0;font-size:20px}.modal-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.icon-btn{border:0;background:#f1f4f1;border-radius:50%;width:32px;height:32px;font-size:18px;color:#526359}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.span-2{grid-column:span 2}.estimate{display:flex;justify-content:space-between;align-items:center;background:#edf5ef;padding:13px;border-radius:10px;color:#315643;font-size:13px}.estimate strong{font-size:19px}.form-actions{display:flex;justify-content:end;gap:9px;margin-top:17px}.toast{position:fixed;right:22px;bottom:22px;z-index:9;max-width:min(380px,calc(100% - 44px));padding:13px 16px;background:#173a2d;color:#fff;border-radius:11px;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateY(0)}.toast.error{background:#8f382e}
+    @media(max-width:1000px){.shell{grid-template-columns:205px minmax(0,1fr)}.car-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-illustration{right:4%;opacity:.55}}
+    @media(max-width:680px){.shell{display:block}aside{position:sticky;top:0;z-index:5;padding:11px 13px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px}.brand{font-size:17px;padding:0}.brand-mark{width:32px;height:32px}.brand small,.nav-label,.aside-bottom{display:none}.nav{display:flex;gap:2px}.nav button{padding:8px;border-radius:9px}.nav button .ico{width:auto}.nav button .nav-text{display:none}main{padding:22px 15px 40px}.topbar{margin-bottom:20px}.topbar h1{font-size:21px}.user-chip span:last-child{display:none}.hero{min-height:236px;padding:25px 23px}.hero p{max-width:290px}.hero-illustration{right:-12px;bottom:-20px;opacity:.36}.stats{gap:8px;margin:15px 0 27px}.stat{padding:13px 11px}.stat-value{font-size:22px}.stat-top{font-size:10px}.stat-icon{width:28px;height:28px}.car-grid{grid-template-columns:1fr}.car-art{height:110px}.section-head{align-items:start}.form-grid{grid-template-columns:1fr}.span-2{grid-column:auto}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><span class="brand-mark">D</span><span>DriveEasy<small>mobilité simple</small></span></div>
+      <div class="nav-label">Espace location</div>
+      <nav class="nav" aria-label="Navigation principale">
+        <button class="active" data-view="dashboard"><span class="ico">⌂</span><span class="nav-text">Vue d'ensemble</span></button>
+        <button data-view="fleet"><span class="ico">◈</span><span class="nav-text">Véhicules</span></button>
+        <button data-view="bookings"><span class="ico">▤</span><span class="nav-text">Réservations</span></button>
+        <button data-view="clients"><span class="ico">♙</span><span class="nav-text">Clients</span></button>
+      </nav>
+      <div class="aside-bottom"><span class="online-dot"></span>Services connectés</div>
+    </aside>
+    <main>
+      <header class="topbar"><div><div class="eyebrow">Votre agence, en un coup d'œil</div><h1 id="pageTitle">Vue d'ensemble</h1></div><div class="user-chip"><span>Bonjour, Hamda</span><span class="avatar">H</span></div></header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="hero"><div class="hero-copy"><div class="eyebrow">DriveEasy · Tunisie</div><h2>La route vous attend.</h2><p>Choisissez votre prochain véhicule et réservez-le en quelques clics.</p><button class="btn btn-primary" data-goto="fleet">Découvrir les véhicules&nbsp; →</button></div><div class="hero-illustration" aria-hidden="true">🚘</div></div>
+        <div class="stats"><article class="stat"><div class="stat-top"><span>Véhicules disponibles</span><span class="stat-icon">◈</span></div><div class="stat-value" id="availableCount">—</div><div class="stat-note">Prêts à prendre la route</div></article><article class="stat"><div class="stat-top"><span>Réservations en cours</span><span class="stat-icon">▤</span></div><div class="stat-value" id="bookingCount">—</div><div class="stat-note">À venir ou en cours</div></article><article class="stat"><div class="stat-top"><span>Clients inscrits</span><span class="stat-icon">♙</span></div><div class="stat-value" id="clientCount">—</div><div class="stat-note">Profils enregistrés</div></article></div>
+        <div class="section-head"><div><h2>Nos véhicules disponibles</h2><p>Une sélection pour votre prochain trajet</p></div><button class="btn btn-light btn-small" data-goto="fleet">Tout voir&nbsp; →</button></div>
+        <div class="car-grid" id="dashboardCars"></div>
+      </section>
+
+      <section class="view" id="view-fleet">
+        <div class="section-head"><div><h2>Le parc automobile</h2><p>Parcourez les véhicules et trouvez celui qui vous convient.</p></div><button class="btn btn-primary" id="newBookingTop">＋ Réserver</button></div>
+        <div class="toolbar"><div class="field search-wrap"><label for="vehicleSearch">Recherche</label><input class="control" id="vehicleSearch" placeholder="Marque, modèle, immatriculation"></div><div class="field"><label for="categoryFilter">Catégorie</label><select class="control" id="categoryFilter"><option value="">Toutes</option></select></div><div class="field"><label for="fuelFilter">Carburant</label><select class="control" id="fuelFilter"><option value="">Tous</option><option>ESSENCE</option><option>DIESEL</option><option>HYBRIDE</option><option>ÉLECTRIQUE</option></select></div><div class="field"><label for="statusFilter">Disponibilité</label><select class="control" id="statusFilter"><option value="">Tous</option><option value="DISPONIBLE">Disponible</option><option value="LOUE">Loué</option><option value="MAINTENANCE">Maintenance</option></select></div></div>
+        <div class="car-grid" id="fleetCars"></div>
+      </section>
+
+      <section class="view" id="view-bookings">
+        <div class="section-head"><div><h2>Réservations</h2><p>Suivez les demandes et gérez les départs et retours.</p></div><button class="btn btn-primary" id="newBookingBookings">＋ Nouvelle réservation</button></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Référence</th><th>Client</th><th>Véhicule</th><th>Période</th><th>Montant</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="bookingRows"></tbody></table><div class="empty" id="bookingEmpty" hidden><strong>Aucune réservation pour le moment</strong>Créez une réservation pour commencer.</div></div>
+      </section>
+
+      <section class="view" id="view-clients">
+        <div class="section-head"><div><h2>Clients</h2><p>Consultez les profils et leur éligibilité à la location.</p></div></div>
+        <div class="toolbar"><div class="field search-wrap"><label for="clientSearch">Recherche</label><input class="control" id="clientSearch" placeholder="Nom, CIN ou email"></div></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Client</th><th>CIN</th><th>Contact</th><th>Catégorie</th><th>Permis</th><th>Éligibilité</th></tr></thead><tbody id="clientRows"></tbody></table></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="bookingDialog"><form class="modal" id="bookingForm"><div class="modal-head"><div><h2>Nouvelle réservation</h2><p>Les données sont enregistrées en mémoire pour cette session.</p></div><button type="button" class="icon-btn" id="closeDialog" aria-label="Fermer">×</button></div><div class="form-grid"><div class="field span-2"><label for="bookingVehicle">Véhicule</label><select class="control" id="bookingVehicle" required></select></div><div class="field span-2"><label for="bookingClient">Client</label><select class="control" id="bookingClient" required></select></div><div class="field"><label for="startDate">Départ</label><input class="control" id="startDate" type="date" required></div><div class="field"><label for="endDate">Retour prévu</label><input class="control" id="endDate" type="date" required></div><div class="estimate span-2"><span>Estimation du séjour</span><strong id="estimateValue">—</strong></div></div><div class="form-actions"><button type="button" class="btn btn-light" id="cancelDialog">Annuler</button><button class="btn btn-primary" id="submitBooking">Confirmer la réservation</button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const state = {vehicles: [], clients: [], bookings: [], eligibility: new Map()};
+    const titles = {dashboard:"Vue d'ensemble",fleet:"Véhicules",bookings:"Réservations",clients:"Clients"};
+    const $ = (selector) => document.querySelector(selector);
+    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+    const money = (value) => new Intl.NumberFormat("fr-TN", {style:"currency",currency:"TND",maximumFractionDigits:0}).format(Number(value || 0));
+    const prettyDate = (value) => value ? new Intl.DateTimeFormat("fr-TN", {day:"2-digit",month:"short",year:"numeric"}).format(new Date(value + "T12:00:00")) : "—";
+    const localDate = (offset=0) => { const d = new Date(); d.setDate(d.getDate()+offset); return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10); };
+    const API_BASE = "http://localhost:8080";
+    async function api(path, options={}) {
+      const response = await fetch(`${API_BASE}${path}`, {...options, headers:{"Content-Type":"application/json", ...(options.headers || {})}});
+      const text = await response.text(); let body = null; try { body = text ? JSON.parse(text) : null; } catch { body = text; }
+      if (!response.ok) throw new Error(body?.message || body?.error || `Erreur ${response.status}`);
+      return body;
+    }
+    let toastTimer;
+    function notify(message, error=false) { const toast=$("#toast"); toast.textContent=message; toast.classList.toggle("error",error); toast.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove("show"),3200); }
+    function statusBadge(status) { const cls={DISPONIBLE:"available",LOUE:"busy",MAINTENANCE:"maintenance",RESERVEE:"reserved",EN_COURS:"running",TERMINEE:"completed",ANNULEE:"cancelled"}[status] || "reserved"; const names={DISPONIBLE:"Disponible",LOUE:"Loué",MAINTENANCE:"Maintenance",RESERVEE:"Réservée",EN_COURS:"En cours",TERMINEE:"Terminée",ANNULEE:"Annulée"}; return `<span class="badge ${cls}">${names[status] || esc(status)}</span>`; }
+    function carIcon(category) { return ({SUV:"🚙",BERLINE:"🚘",COMPACTE:"🚗",ECONOMIQUE:"🚗",CITADINE:"🚕"})[category] || "🚘"; }
+    function carCard(v) { const isAvailable=v.statut==="DISPONIBLE"; return `<article class="car-card"><div class="car-art"><span>${carIcon(esc(v.categorie))}</span><span class="car-category">${esc(v.categorie)}</span></div><div class="car-content"><div class="car-title"><div><h3>${esc(v.marque)} ${esc(v.modele)}</h3><div class="car-plate">${esc(v.immatriculation)}</div></div><div class="car-price">${money(v.prixJournalier)}<small> / jour</small></div></div><div class="car-meta"><span>◷ ${esc(v.annee)}</span><span>⛽ ${esc(v.carburant)}</span><span>↗ ${Number(v.kilometrage).toLocaleString("fr-TN")} km</span></div><div class="car-actions">${statusBadge(v.statut)}<button class="btn btn-primary btn-small" data-book="${v.id}" ${isAvailable?"":"disabled"}>Réserver</button></div></div></article>`; }
+    function renderCars() {
+      const available=state.vehicles.filter(v=>v.statut==="DISPONIBLE");
+      $("#dashboardCars").innerHTML=available.slice(0,3).map(carCard).join("") || `<div class="empty"><strong>Aucun véhicule disponible</strong>Revenez bientôt pour découvrir notre flotte.</div>`;
+      const q=$("#vehicleSearch").value.trim().toLowerCase(), cat=$("#categoryFilter").value, fuel=$("#fuelFilter").value, status=$("#statusFilter").value;
+      const filtered=state.vehicles.filter(v=>(!q||`${v.marque} ${v.modele} ${v.immatriculation}`.toLowerCase().includes(q))&&(!cat||v.categorie===cat)&&(!fuel||v.carburant===fuel)&&(!status||v.statut===status));
+      $("#fleetCars").innerHTML=filtered.map(carCard).join("") || `<div class="empty"><strong>Aucun résultat</strong>Essayez d'autres filtres.</div>`;
+      $("#availableCount").textContent=available.length; $("#bookingCount").textContent=state.bookings.filter(b=>["RESERVEE","EN_COURS"].includes(b.statut)).length; $("#clientCount").textContent=state.clients.length;
+      const cats=[...new Set(state.vehicles.map(v=>v.categorie))]; const select=$("#categoryFilter"), current=select.value; select.innerHTML='<option value="">Toutes</option>'+cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join(""); select.value=current;
+    }
+    function renderBookings() {
+      const body=$("#bookingRows"); $("#bookingEmpty").hidden=state.bookings.length>0;
+      body.innerHTML=state.bookings.map(b=>{const c=state.clients.find(x=>x.id===b.clientId),v=state.vehicles.find(x=>x.id===b.vehiculeId);let actions="";if(b.statut==="RESERVEE")actions=`<button class="btn btn-light btn-small" data-action="start" data-id="${b.id}">Départ</button><button class="btn btn-danger btn-small" data-action="cancel" data-id="${b.id}">Annuler</button>`;if(b.statut==="EN_COURS")actions=`<button class="btn btn-primary btn-small" data-action="return" data-id="${b.id}">Retour</button>`;return `<tr><td><strong>DE-${String(b.id).padStart(4,"0")}</strong></td><td>${esc(c?`${c.prenom} ${c.nom}`:`Client #${b.clientId}`)}</td><td>${esc(v?`${v.marque} ${v.modele}`:`Véhicule #${b.vehiculeId}`)}</td><td>${prettyDate(b.dateDebut)} → ${prettyDate(b.dateFinPrevue)}</td><td>${money(b.montantTotal)}</td><td>${statusBadge(b.statut)}</td><td><div class="table-actions">${actions||'<span class="muted">—</span>'}</div></td></tr>`;}).join("");
+    }
+    function renderClients() {
+      const q=$("#clientSearch").value.trim().toLowerCase();
+      const rows=state.clients.filter(c=>!q||`${c.prenom} ${c.nom} ${c.cin} ${c.email}`.toLowerCase().includes(q));
+      $("#clientRows").innerHTML=rows.map(c=>{const e=state.eligibility.get(c.id);return `<tr><td><div class="client-name">${esc(c.prenom)} ${esc(c.nom)}</div><div class="client-sub">${Number(c.locationsTerminees||0)} location(s) terminée(s)</div></td><td>${esc(c.cin)}</td><td>${esc(c.email)}<div class="client-sub">${esc(c.telephone)}</div></td><td><span class="badge ${c.categorieClient==='VIP'?'completed':'reserved'}">${esc(c.categorieClient)}</span></td><td>Expire le ${prettyDate(c.dateExpirationPermis)}</td><td>${e?.eligible?'<span class="badge available">Éligible</span>':'<span class="badge maintenance">Non éligible</span>'}</td></tr>`;}).join("");
+    }
+    function setView(name) { document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===`view-${name}`)); document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name)); $("#pageTitle").textContent=titles[name]; }
+    async function refresh() {
+      try {
+        const [vehicles,clients,bookings]=await Promise.all([api("/api/vehicules"),api("/api/clients"),api("/api/locations")]);
+        state.vehicles=vehicles; state.clients=clients; state.bookings=bookings.content || [];
+        const checks=await Promise.all(clients.map(async c=>{try{return [c.id,await api(`/api/clients/${c.id}/eligibilite`)];}catch{return [c.id,{eligible:false}];}})); state.eligibility=new Map(checks);
+        renderCars();renderBookings();renderClients();
+        if(!document.querySelector("#bookingDialog").open) fillBookingOptions();
+      } catch(error) { notify(`Impossible de charger les services : ${error.message}`,true); }
+    }
+    function fillBookingOptions(selectedId) {
+      const available=state.vehicles.filter(v=>v.statut==="DISPONIBLE");
+      $("#bookingVehicle").innerHTML=available.map(v=>`<option value="${v.id}">${esc(v.marque)} ${esc(v.modele)} · ${money(v.prixJournalier)}/jour</option>`).join("");
+      if(selectedId) $("#bookingVehicle").value=String(selectedId);
+      const eligible=state.clients.filter(c=>state.eligibility.get(c.id)?.eligible);
+      $("#bookingClient").innerHTML=eligible.map(c=>`<option value="${c.id}">${esc(c.prenom)} ${esc(c.nom)} · ${esc(c.categorieClient)}</option>`).join("");
+      if(!available.length) $("#bookingVehicle").innerHTML='<option value="">Aucun véhicule disponible</option>';
+      if(!eligible.length) $("#bookingClient").innerHTML='<option value="">Aucun client éligible</option>';
+    }
+    async function estimate() {
+      const clientId=Number($("#bookingClient").value),vehiculeId=Number($("#bookingVehicle").value),dateDebut=$("#startDate").value,dateFin=$("#endDate").value;
+      if(!clientId||!vehiculeId||!dateDebut||!dateFin||dateDebut>=dateFin){$("#estimateValue").textContent="—";return;}
+      try{const result=await api("/api/locations/simulation",{method:"POST",body:JSON.stringify({clientId,vehiculeId,dateDebut,dateFin})});$("#estimateValue").textContent=money(result.montantEstime);}catch(error){$("#estimateValue").textContent=error.message;}
+    }
+    function openBooking(vehicleId) {
+      fillBookingOptions(vehicleId); $("#startDate").min=localDate(1); $("#endDate").min=localDate(2); $("#startDate").value=localDate(1); $("#endDate").value=localDate(2);
+      if(!state.vehicles.some(v=>v.statut==="DISPONIBLE")||!state.clients.some(c=>state.eligibility.get(c.id)?.eligible)){notify("Il faut un véhicule disponible et un client éligible.",true);return;}
+      $("#bookingDialog").showModal(); estimate();
+    }
+    document.querySelectorAll(".nav button").forEach(button=>button.addEventListener("click",()=>setView(button.dataset.view)));
+    document.querySelectorAll("[data-goto]").forEach(button=>button.addEventListener("click",()=>setView(button.dataset.goto)));
+    $("#newBookingTop").addEventListener("click",()=>openBooking()); $("#newBookingBookings").addEventListener("click",()=>openBooking());
+    $("#closeDialog").addEventListener("click",()=>$("#bookingDialog").close()); $("#cancelDialog").addEventListener("click",()=>$("#bookingDialog").close());
+    ["#bookingVehicle","#bookingClient","#startDate","#endDate"].forEach(selector=>$(selector).addEventListener("change",estimate));
+    ["#vehicleSearch","#categoryFilter","#fuelFilter","#statusFilter"].forEach(selector=>$(selector).addEventListener("input",renderCars));
+    $("#clientSearch").addEventListener("input",renderClients);
+    document.addEventListener("click",async event=>{
+      const book=event.target.closest("[data-book]"); if(book){openBooking(Number(book.dataset.book));return;}
+      const action=event.target.closest("[data-action]"); if(!action)return;
+      const id=action.dataset.id; action.disabled=true;
+      try{
+        if(action.dataset.action==="cancel") await api(`/api/locations/${id}/annulation`,{method:"PATCH"});
+        if(action.dataset.action==="start") await api(`/api/locations/${id}/depart`,{method:"PATCH"});
+        if(action.dataset.action==="return") {const km=Number(prompt("Kilométrage au retour :"));if(!Number.isFinite(km)||km<0){action.disabled=false;return;}await api(`/api/locations/${id}/retour`,{method:"PATCH",body:JSON.stringify({kmRetour:km,dateRetour:localDate()})});}
+        notify("Réservation mise à jour."); await refresh();
+      }catch(error){notify(error.message,true);action.disabled=false;}
+    });
+    $("#bookingForm").addEventListener("submit",async event=>{
+      event.preventDefault();const button=$("#submitBooking");button.disabled=true;
+      try{await api("/api/locations",{method:"POST",body:JSON.stringify({clientId:Number($("#bookingClient").value),vehiculeId:Number($("#bookingVehicle").value),dateDebut:$("#startDate").value,dateFin:$("#endDate").value})});$("#bookingDialog").close();notify("Réservation confirmée !");setView("bookings");await refresh();}
+      catch(error){notify(error.message,true);}finally{button.disabled=false;}
+    });
+    refresh();
+  </script>
+</body>
+</html>
